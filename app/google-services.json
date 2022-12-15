@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "414192062357",
+    "project_id": "shared-shopping-ae974",
+    "storage_bucket": "shared-shopping-ae974.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414192062357:android:33fa682a22cff8ed68f09c",
+        "android_client_info": {
+          "package_name": "mobile.course.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414192062357-pl674ckbn4jn82tv8sp73vjk1snpgdgh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQOUV6qZtyISpMlHhY0LqpFf5sMGgDxqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414192062357-pl674ckbn4jn82tv8sp73vjk1snpgdgh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

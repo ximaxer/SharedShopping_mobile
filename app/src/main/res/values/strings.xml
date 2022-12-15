@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Shared Shopping</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_notification_channel_id">1</string>
+    <string name="WelcomeBack">Welcome Back</string>
+    <string name="LoginToContinue">Login to continue</string>
+    <string name="NewAccount">Create New Account</string>
+    <string name="Name">Name</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="ConfirmPassword">Confirm Password</string>
+    <string name="SignIn">Sign In</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="backbutton">Go back</string>
+    <string name="magnifyingglass">Search</string>
+    <string name="saveIcon">Save File</string>
+    <string name="search_note">Search shoppingList</string>
+    <string name="add_new_note">Add new shoppingList</string>
+    <string name="add_new_note_name">add new shoppingList name</string>
+    <string name="navigation_drawer_open">Open navigation bar</string>
+    <string name="navigation_drawer_close">Close navigation bar</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/primary">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ProfilePic"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:background="@drawable/background_image"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="@dimen/_100sdp"/>
+        <TextView
+            android:id="@+id/textView"
+            style="@style/note_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_toRightOf="@+id/ProfilePic"
+            />
+    </RelativeLayout>
+</LinearLayout>
