@@ -104,7 +104,7 @@ public class SignInFragment extends Fragment {
                                             String reference = listObject.getString(Constants.KEY_LIST_ID);
                                             String title = listObject.getString(Constants.KEY_LIST_TITLE);
                                             String content = listObject.getString(Constants.KEY_LIST_TEXT);
-                                            viewModel.createList(reference, title, content,listObject.getString(Constants.KEY_OWNER));
+                                            viewModel.createList(reference, title, content,listObject.getString(Constants.KEY_OWNER),listObject.getString(Constants.KEY_LIST_USERS));
 
                                         }else{
                                             myLists.remove(listId);

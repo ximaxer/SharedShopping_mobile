@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import mobile.course.project.Utils.Converters;
@@ -28,9 +31,9 @@ public class ShoppingListRepository {
         return allLists;
     }
 
-    public void updateList(int id, String _title, String _content, String _owner) {
+    public void updateList(int id, String _title, String _content, String _owner, String _listUsers) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            shoppingListDao.updateList(id, _title, _content, _owner);
+            shoppingListDao.updateList(id, _title, _content, _owner, _listUsers);
         });
     }
 

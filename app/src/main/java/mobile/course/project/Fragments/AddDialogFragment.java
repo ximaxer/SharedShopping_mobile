@@ -73,6 +73,9 @@ public class AddDialogFragment extends DialogFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         HashMap<String, Object> shoppingList = new HashMap<>();
         shoppingList.put(Constants.KEY_OWNER, preferenceManager.getString(Constants.KEY_USER_ID));
+        ArrayList<String> listUsers = new ArrayList<>();
+        listUsers.add(preferenceManager.getString(Constants.KEY_USER_ID));
+        shoppingList.put(Constants.KEY_LIST_USERS, Converters.ArrayListToJsonString(listUsers));
         shoppingList.put(Constants.KEY_LIST_TITLE, _title);
         shoppingList.put(Constants.KEY_LIST_TEXT, _text);
         db.collection(Constants.KEY_COLLECTION_LISTS).add(shoppingList)
@@ -89,7 +92,7 @@ public class AddDialogFragment extends DialogFragment {
                             myLists.put(Constants.KEY_MY_LISTS, Converters.ArrayListToJsonString(myPreferedLists));
                             db.collection(Constants.KEY_COLLECTION_USERS).document(preferenceManager.getString(Constants.KEY_USER_ID)).update(myLists);
 
-                            viewModel.createList(listDocumentReference.getId(),_title, _text, preferenceManager.getString(Constants.KEY_USER_ID));
+                            viewModel.createList(listDocumentReference.getId(),_title, _text, preferenceManager.getString(Constants.KEY_USER_ID),Converters.ArrayListToJsonString(listUsers));
                         }).addOnFailureListener(exception -> {
                     exception.printStackTrace();
                 });

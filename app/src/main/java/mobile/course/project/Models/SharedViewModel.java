@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -54,7 +55,7 @@ public class SharedViewModel extends AndroidViewModel {
     public void setConnectionStatus(boolean isConnected){this.isConnected=isConnected;}
 
     public void changeLocalListAttributes(ShoppingList _shoppingList){
-        myRepository.updateList(_shoppingList.getListId(), _shoppingList.getListTitle(), _shoppingList.getListContent(), _shoppingList.getOwner());
+        myRepository.updateList(_shoppingList.getListId(), _shoppingList.getListTitle(), _shoppingList.getListContent(), _shoppingList.getOwner(),_shoppingList.getListUsers());
     }
 
     public void changeListAttributes(ShoppingList _shoppingList) {
@@ -73,7 +74,7 @@ public class SharedViewModel extends AndroidViewModel {
                             title = _shoppingList.getListTitle();
                         }
                         list.put(Constants.KEY_LIST_TITLE, title);
-                        myRepository.updateList(_shoppingList.getListId(), title, _shoppingList.getListContent(), _shoppingList.getOwner());
+                        myRepository.updateList(_shoppingList.getListId(), title, _shoppingList.getListContent(), _shoppingList.getOwner(),_shoppingList.getListUsers());
                         db.collection(Constants.KEY_COLLECTION_LISTS).document(_shoppingList.getListReference()).update(list);
                     }
             );
@@ -124,8 +125,8 @@ public class SharedViewModel extends AndroidViewModel {
         }
     }
 
-    public void createList(String listReference, String listTitle, String listContent, String owner){
-        ShoppingList newShoppingList = new ShoppingList(listReference, listTitle, listContent, owner);
+    public void createList(String listReference, String listTitle, String listContent, String owner, String listUsers){
+        ShoppingList newShoppingList = new ShoppingList(listReference, listTitle, listContent, owner,listUsers);
         try{
             myRepository.insert(newShoppingList);
         }catch (Exception e){

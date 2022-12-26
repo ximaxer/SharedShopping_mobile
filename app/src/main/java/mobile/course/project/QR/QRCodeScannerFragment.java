@@ -1,9 +1,15 @@
 package mobile.course.project.QR;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,11 +31,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.prefs.PreferenceChangeEvent;
 
 import mobile.course.project.Fragments.ListFragment;
 import mobile.course.project.Fragments.NoteFragment;
 import mobile.course.project.Interfaces.DrawerLocker;
+import android.Manifest;
 import mobile.course.project.Models.SharedViewModel;
 import mobile.course.project.R;
 import mobile.course.project.Utils.Constants;
@@ -40,10 +50,10 @@ import mobile.course.project.db.ShoppingList;
 public class QRCodeScannerFragment extends Fragment {
 
     private CodeScanner mCodeScanner;
-    boolean CameraPermission = false;
-    final int CAMERA_PERM = 1;
     private SharedViewModel viewModel;
     private PreferenceManager preferenceManager;
+    ActivityResultLauncher<String[]> mPermissionResultLauncher;
+    private boolean isCameraPermissionGranted = false;
 
     public QRCodeScannerFragment() {
         // Required empty public constructor
@@ -65,6 +75,15 @@ public class QRCodeScannerFragment extends Fragment {
         ((DrawerLocker)getActivity()).setDrawerEnabled(false);
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+        mPermissionResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+            @Override
+            public void onActivityResult(Map<String, Boolean> result) {
+                if(result.get(Manifest.permission.CAMERA)!= null){
+                    isCameraPermissionGranted = result.get(Manifest.permission.CAMERA);
+                }
+            }
+        });
+        requestPermission();
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
@@ -127,11 +146,18 @@ public class QRCodeScannerFragment extends Fragment {
                                 db.collection(Constants.KEY_COLLECTION_LISTS).document(scannedShoppingList.getListReference()).get().addOnSuccessListener(
                                         listObject -> {
                                             if (listObject.exists()) {
+                                                ArrayList<String> listsUsers = Converters.JsonStringToArrayList(listObject.getString(Constants.KEY_LIST_USERS));
+                                                listsUsers.add(preferenceManager.getString(Constants.KEY_USER_ID));
+
+                                                HashMap<String, Object> myFirebaseListUser = (HashMap<String, Object>) listObject.getData();
+                                                myFirebaseListUser.put(Constants.KEY_LIST_USERS, Converters.ArrayListToJsonString(listsUsers));
+                                                db.collection(Constants.KEY_COLLECTION_LISTS).document(scannedShoppingList.getListReference()).update(myFirebaseListUser);
+
                                                 String reference = listObject.getString(Constants.KEY_LIST_ID);
                                                 String title = listObject.getString(Constants.KEY_LIST_TITLE);
                                                 String content = listObject.getString(Constants.KEY_LIST_TEXT);
                                                 String owner = scannedShoppingList.getOwner();
-                                                viewModel.createList(reference, title, content, owner);
+                                                viewModel.createList(reference, title, content, owner, Converters.ArrayListToJsonString(listsUsers));
                                             }
                                         }
                                 );
@@ -141,6 +167,17 @@ public class QRCodeScannerFragment extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+    }
+    public void requestPermission(){
+        isCameraPermissionGranted = ContextCompat.checkSelfPermission(
+                requireActivity(),Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
+       List<String> permissionRequest = new ArrayList<String>();
+        if(!isCameraPermissionGranted){
+            permissionRequest.add(Manifest.permission.CAMERA);
+        }
+        if(!permissionRequest.isEmpty()){
+            mPermissionResultLauncher.launch(permissionRequest.toArray(new String[0]));
         }
     }
 }

@@ -5,14 +5,20 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
 @Entity(tableName = "ShoppingLists")
 public class ShoppingList {
 
-    public ShoppingList(@NonNull String listReference, @NonNull String listTitle, @NonNull String listContent, @NonNull String owner){
+    public ShoppingList(@NonNull String listReference, @NonNull String listTitle, @NonNull String listContent,
+                        @NonNull String owner,@NonNull String listUsers){
         this.listReference = listReference;
         this.listTitle = listTitle;
         this.listContent = listContent;
         this.owner = owner;
+        this.listUsers = listUsers;
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -29,6 +35,10 @@ public class ShoppingList {
 
     @ColumnInfo(name = "listOwner")
     private String owner;
+
+    @ColumnInfo(name = "listUsers")
+    private String listUsers;
+
 
     public int getListId() {
         return listId;
@@ -70,7 +80,13 @@ public class ShoppingList {
         this.listContent = listContent;
     }
 
+    public String getListUsers() {
+        return listUsers;
+    }
 
+    public void setListUsers(String listUsers) {
+        this.listUsers = listUsers;
+    }
 
 
     //usar MQTT para topicos

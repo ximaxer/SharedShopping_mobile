@@ -3,6 +3,7 @@ package mobile.course.project.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,6 +29,10 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,6 +50,11 @@ import mobile.course.project.Utils.PreferenceManager;
 import mobile.course.project.Utils.RecyclerItemClickListener;
 import mobile.course.project.adapter.CustomAdapter;
 import mobile.course.project.db.ShoppingList;
+import mobile.course.project.network.ApiClient;
+import mobile.course.project.network.ApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ListFragment extends Fragment {
@@ -73,7 +83,7 @@ public class ListFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(requireActivity().getApplicationContext());
-        ((MainActivity)getActivity()).connectingToMqttServer(requireActivity().getApplicationContext());
+        //((MainActivity)getActivity()).connectingToMqttServer(requireActivity().getApplicationContext());
         adapter = new CustomAdapter(new CustomAdapter.ShoppingListDiff());
         viewModel.getLists().observe(requireActivity(), shoppingLists -> {
             // Update the cached copy of the words in the adapter.
@@ -98,8 +108,12 @@ public class ListFragment extends Fragment {
                     EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(new EditDialogFragment() {
                     });
                     editDialogFragment.show(getParentFragmentManager(), "EditDialogFragment");
-                }else{
-                    Toast.makeText(requireActivity().getApplicationContext(),"You're not allowed to edit this.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    viewModel.setList(adapter.getCurrentList().get(position));
+                    EditDialogFragment2 editDialogFragment2 = EditDialogFragment2.newInstance(new EditDialogFragment2() {
+                    });
+                    editDialogFragment2.show(getParentFragmentManager(), "EditDialogFragment2");
                 }
                 // do whatever
             }
@@ -168,6 +182,7 @@ public class ListFragment extends Fragment {
                         if (list.getListReference().equals(listId)) {
                             list.setListTitle((String) fireBaseList.get(Constants.KEY_LIST_TITLE));
                             list.setListContent((String) fireBaseList.get(Constants.KEY_LIST_TEXT));
+                            list.setListUsers((String) fireBaseList.get(Constants.KEY_LIST_USERS));
                             viewModel.changeLocalListAttributes(list);
                         }
                     }
@@ -210,4 +225,6 @@ public class ListFragment extends Fragment {
             adapter.submitList(filteredlist);
         }
     }
+
+
 }

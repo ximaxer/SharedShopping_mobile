@@ -8,6 +8,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 @Dao
 public interface ShoppingListDAO {
@@ -21,8 +24,8 @@ public interface ShoppingListDAO {
     @Insert(onConflict = REPLACE)
     void insertList(ShoppingList shoppingList);
 
-    @Query("UPDATE ShoppingLists Set listTitle = :title, listContent= :text where listId= :id and listOwner= :owner")
-    void updateList(int id, String title, String text, String owner);
+    @Query("UPDATE ShoppingLists Set listTitle = :title, listContent= :text where listId= :id and listOwner= :owner and listUsers= :listUsers")
+    void updateList(int id, String title, String text, String owner, String listUsers);
 
     @Query("DELETE FROM ShoppingLists")
     void deleteAll();

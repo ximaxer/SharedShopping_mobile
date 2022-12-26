@@ -36,6 +36,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import mobile.course.project.Fragments.AcceptDialogFragment;
@@ -48,10 +49,12 @@ import mobile.course.project.Interfaces.DrawerLocker;
 import mobile.course.project.QR.QRCodeScannerFragment;
 import mobile.course.project.R;
 import mobile.course.project.Utils.Constants;
+import mobile.course.project.Utils.Converters;
 import mobile.course.project.Utils.PreferenceManager;
 import mobile.course.project.db.ShoppingList;
 import mobile.course.project.Utils.MQTTHelper;
 import mobile.course.project.Models.SharedViewModel;
+import mobile.course.project.firebase.FcmNotificationsSender;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker {
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         preferenceManager = new PreferenceManager(getApplicationContext());
         preferenceManager.clear();
-        viewModel.setPreferenceManager(preferenceManager);
+         viewModel.setPreferenceManager(preferenceManager);
         setContentView(R.layout.activity_main);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -220,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void updateToken(String token){
+       // preferenceManager.putString(Constants.KEY_FCM_TOKEN, token);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference documentReference = db.collection(Constants.KEY_COLLECTION_USERS).document(
                 preferenceManager.getString(Constants.KEY_USER_ID)
@@ -263,5 +267,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.setDrawerIndicatorEnabled(enabled);
+    }
+
+    public void sendNotification(String title, String body) {
+        ShoppingList myShoppingList = viewModel.getList();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();;
+        ArrayList<String> currentListUsers = Converters.JsonStringToArrayList(myShoppingList.getListUsers());
+        for (String listUser : currentListUsers) {
+            if (!listUser.equals(preferenceManager.getString(Constants.KEY_USER_ID))) {
+                System.out.println("-->listuser: " + listUser + "\n-->userId: " + preferenceManager.getString(Constants.KEY_USER_ID));
+                db.collection(Constants.KEY_COLLECTION_USERS).document(listUser).get().addOnSuccessListener(
+                        userHashMap -> {
+                            HashMap<String, Object> myUser = (HashMap<String, Object>) userHashMap.getData();
+                            String usertoken = (String) myUser.get(Constants.KEY_FCM_TOKEN);
+                            FcmNotificationsSender notificationsSender = new FcmNotificationsSender(usertoken, title, body, getApplicationContext(), this);
+                            notificationsSender.SendNotifications();
+                        }
+                );
+            }
+        }
     }
 }
