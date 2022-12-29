@@ -9,6 +9,7 @@
     android:theme="@style/AppTheme.NoActionBar"
     android:padding="24dp"
     android:scrollbars="none"
+    android:background="@drawable/signup"
     tools:context=".Fragments.SignUpFragment">
 
     <LinearLayout
@@ -133,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/SignIn"
-            android:textColor="@color/primary"
+            android:textColor="@color/secondary"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
 

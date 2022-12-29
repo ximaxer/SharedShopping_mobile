@@ -5,13 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="#F6F4EC"
     tools:context=".Fragments.NoteFragment">
     <EditText
         android:id="@+id/NoteText"
+        android:background="@drawable/background_contet_list"
+        android:paddingStart="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:paddingTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:gravity="top"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"
         android:layout_height="match_parent"
         android:hint="@string/hello_blank_fragment"
+        android:backgroundTint="@color/listItem"
         android:textColor="@color/black"/>
 </RelativeLayout>

@@ -9,6 +9,7 @@
     android:overScrollMode="never"
     android:padding="24dp"
     android:scrollbars="none"
+    android:background="@drawable/signin"
     tools:context=".Fragments.SignInFragment">
 
     <LinearLayout
@@ -16,10 +17,15 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/noteicon">
+        </ImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/WelcomeBack"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_18ssp"
@@ -37,7 +43,7 @@
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_60sdp"
             android:background="@drawable/background_input"
             android:hint="@string/Email"
             android:imeOptions="actionNext"
@@ -65,7 +71,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:animateLayoutChanges="true">
             <Button
                 android:id="@+id/SignInButton"
@@ -90,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/NewAccount"
-            android:textColor="@color/primary"
+            android:textColor="@color/secondary"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
 

@@ -5,40 +5,38 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
     tools:context=".Fragments.EditDialogFragment">
 
     <LinearLayout
         android:layout_width="@dimen/_240sdp"
         android:layout_height="@dimen/_180sdp"
-        android:background="#b19cd9"
+        android:background="@drawable/background_contet_list"
+        android:backgroundTint="@color/primary"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="30dp"
-        android:paddingTop="30dp"
         android:paddingRight="30dp"
-        android:paddingBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/editTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New title"
-            android:textSize="@dimen/_18ssp"
-            android:textStyle="bold" />
-
         <EditText
             android:id="@+id/newTitle"
+            android:background="@drawable/background_input"
             android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_40sdp"
             android:inputType="text"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:hint="@string/new_title"
+            android:textColorHint="#696767"
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/saveButton"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/rounded_corner"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
             android:text="Save"
@@ -47,9 +45,11 @@
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:text="Delete list?"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:background="@drawable/rounded_corner"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:text="Delete List"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>

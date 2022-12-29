@@ -43,6 +43,7 @@ import mobile.course.project.Fragments.AcceptDialogFragment;
 import mobile.course.project.Fragments.AddDialogFragment;
 import mobile.course.project.Fragments.ListFragment;
 import mobile.course.project.Fragments.NoteFragment;
+import mobile.course.project.Fragments.ProfileFragment;
 import mobile.course.project.Fragments.SignUpFragment;
 import mobile.course.project.Fragments.SignInFragment;
 import mobile.course.project.Interfaces.DrawerLocker;
@@ -130,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 viewModel.deleteAllLists();
                 SignOut();
+                break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -20,4 +20,6 @@
     <string name="add_new_note_name">add new shoppingList name</string>
     <string name="navigation_drawer_open">Open navigation bar</string>
     <string name="navigation_drawer_close">Close navigation bar</string>
+    <string name="Profile">Profile</string>
+    <string name="new_title">New Title</string>
 </resources>
