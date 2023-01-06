@@ -50,8 +50,6 @@ import mobile.course.project.Utils.PreferenceManager;
 import mobile.course.project.Utils.RecyclerItemClickListener;
 import mobile.course.project.adapter.CustomAdapter;
 import mobile.course.project.db.ShoppingList;
-import mobile.course.project.network.ApiClient;
-import mobile.course.project.network.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

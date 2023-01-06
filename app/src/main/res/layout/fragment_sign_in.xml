@@ -25,6 +25,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Shared Shopping"
+            android:textColor="#285430"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/WelcomeBack"
             android:textColor="@color/primary_text"
@@ -43,7 +51,7 @@
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:background="@drawable/background_input"
             android:hint="@string/Email"
             android:imeOptions="actionNext"
