@@ -113,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             else if(currentFragment instanceof SignUpFragment) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SignInFragment()).commit();
             }
+            else if(currentFragment instanceof QRCodeScannerFragment) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListFragment()).commit();
+            }
+            else if(currentFragment instanceof ProfileFragment) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListFragment()).commit();
+            }
         }
     }
     @Override

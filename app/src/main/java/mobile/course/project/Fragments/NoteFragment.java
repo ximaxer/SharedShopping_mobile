@@ -47,8 +47,6 @@ import mobile.course.project.Utils.Converters;
 import mobile.course.project.Utils.PreferenceManager;
 import mobile.course.project.db.ShoppingList;
 import mobile.course.project.firebase.FcmNotificationsSender;
-import mobile.course.project.network.ApiClient;
-import mobile.course.project.network.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -5,14 +5,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparent"
+    android:background="@color/primary"
     tools:context=".Fragments.EditDialogFragment">
 
     <LinearLayout
         android:layout_width="@dimen/_240sdp"
         android:layout_height="@dimen/_180sdp"
-        android:background="@drawable/background_contet_list"
-        android:backgroundTint="@color/primary"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="30dp"
@@ -47,7 +45,7 @@
             android:id="@+id/deleteButton"
             android:layout_marginTop="@dimen/_25sdp"
             android:background="@drawable/rounded_corner"
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="@dimen/_180sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="Delete List"
             android:layout_gravity="center_horizontal" />
